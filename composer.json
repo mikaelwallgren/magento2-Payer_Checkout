@@ -1,0 +1,17 @@
+{
+  "name": "payer/checkout",
+  "description": "Payer Checkout for Magento 2",
+  "type": "magento2-module",
+  "version": "dev-master",
+  "require": {
+    "payer/sdk": "1.*"
+  },
+  "extra": {
+    "map": [
+      [
+        "*",
+        "Payer/Checkout"
+      ]
+    ]
+  }
+}
