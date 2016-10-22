@@ -35,6 +35,7 @@ class Payment extends \Magento\Payment\Model\Method\Cc
 			\Magento\Framework\Module\ModuleListInterface $moduleList,
 			\Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate,
 			\Magento\Directory\Model\CountryFactory $countryFactory,
+			\Payer\Sdk $payer,
 			array $data = array()
 	) {
 		parent::__construct(
