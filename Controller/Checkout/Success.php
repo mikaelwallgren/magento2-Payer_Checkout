@@ -14,14 +14,13 @@ class Success extends \Magento\Framework\App\Action\Action {
 			\Magento\Quote\Model\QuoteFactory $quoteFactory,
 			\Magento\Checkout\Model\Session $checkoutSession,
 			\Magento\Sales\Model\Order $order,
-			\Magento\Framework\Controller\ResultFactory $resultFactory,
 			\Payer\Checkout\Model\Payment $payerCheckoutModel
 	) {
 		$this->payerCheckoutModel = $payerCheckoutModel;
 		$this->quoteFactory = $quoteFactory;
 		$this->checkoutSession = $checkoutSession;
 		$this->order = $order;
-		$this->resultFactory = $resultFactory;
+		$this->resultFactory = $context->getResultFactory();
 		parent::__construct($context);
 	}
 

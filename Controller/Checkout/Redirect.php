@@ -13,12 +13,11 @@ class Redirect extends \Magento\Framework\App\Action\Action {
 	public function __construct(
 			\Magento\Framework\App\Action\Context $context,
 			\Magento\Checkout\Model\Session $checkoutSession,
-			\Payer\Checkout\Model\Payment $payerCheckoutModel,
-			\Magento\Framework\UrlInterface $urlBuilder
+			\Payer\Checkout\Model\Payment $payerCheckoutModel
 	) {
 		$this->payerCheckoutModel = $payerCheckoutModel;
 		$this->checkoutSession = $checkoutSession;
-		$this->urlBuilder = $urlBuilder;
+		$this->urlBuilder = $context->getUrl();
 		parent::__construct($context);
 	}
 
