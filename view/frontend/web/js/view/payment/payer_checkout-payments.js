@@ -13,7 +13,7 @@ define(
         rendererList.push(
             {
                 type: 'payer_checkout',
-                component: 'Payer_Checkout/js/view/payment/method-renderer/payer-method'
+                component: 'Payer_Checkout/js/view/payment/method-renderer/payer_checkout-method'
             }
         );
         /** Add view logic here if needed */
