@@ -54,7 +54,7 @@ class Redirect extends \Magento\Framework\App\Action\Action {
 						'currency' => $quote->getQuoteCurrencyCode(),
 						'description' => 'Quote Id ' . $quote->getId(),
 						'reference_id' => $quote->getId(),
-						'test_mode' => true,
+						'test_mode' => $this->payerCheckoutModel->getConfigData('debug'),
 						'customer' => array(
 								'identity_number' => '',
 							// 'organisation'      => 'Test Company',
