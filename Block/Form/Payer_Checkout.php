@@ -15,5 +15,5 @@ class Payer_Checkout extends \Magento\Payment\Block\Form
 	 *
 	 * @var string
 	 */
-	protected $_template = 'form/checkout.phtml';
+	protected $_template = 'form/payer_checkout.phtml';
 }

@@ -5,7 +5,6 @@
             <payer_checkout>
                 <active>0</active>
                 <model>Payer\Checkout\Model\Payment</model>
-                <payment_action>authorize_capture</payment_action>
                 <title>Payer Checkout</title>
                 <allowspecific>0</allowspecific>
             </payer_checkout>

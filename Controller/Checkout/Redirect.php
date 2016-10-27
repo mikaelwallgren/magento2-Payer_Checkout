@@ -25,7 +25,6 @@ class Redirect extends \Magento\Framework\App\Action\Action {
 	 * @return \Magento\Framework\View\Result\Page
 	 */
 	public function execute() {
-
 		$quote = $this->checkoutSession->getQuote();
 		$customer = $quote->getCustomer();
 		$billingAddress = $quote->getBillingAddress();
@@ -41,7 +40,7 @@ class Redirect extends \Magento\Framework\App\Action\Action {
 		$data = array(
 				'payment' => array(
 						'language' => 'sv',
-						'method' => 'auto',
+						'method' => $_REQUEST['payer_method'],
 						'url' => array(
 								'authorize' => $this->urlBuilder->getUrl('payer/checkout/authorize') . '?quote_id=' . $quote->getId(),
 								'settle' => $this->urlBuilder->getUrl('payer/checkout/settle') . '?quote_id=' . $quote->getId(),

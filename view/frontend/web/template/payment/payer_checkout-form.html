@@ -17,6 +17,15 @@
         </div>
 
         <form class="form" data-bind="attr: {'id': getCode() + '-form'}">
+            <div data-bind="foreach: getMethods()">
+                <!-- ko if: $index() === 0 -->
+                <input data-bind="attr: {'id': 'payer_method_'+$data.value, value: $data.value, checked: true}" name="payer_method" type="radio" />
+                <!--/ko-->
+                <!-- ko ifnot: $index() === 0 -->
+                <input data-bind="attr: {'id': 'payer_method_'+$data.value, value: $data.value}" name="payer_method" type="radio" />
+                <!--/ko-->
+                <label data-bind="attr: {'for': 'payer_method_'+$data.value}" class="label"><span data-bind="text: $data.name"></span></label><br />
+            </div>
         </form>
 
         <div class="checkout-agreements-block">
@@ -29,11 +38,11 @@
                 <button class="action primary checkout"
                         type="submit"
                         data-bind="
-                        click: placeOrder,
-                        attr: {title: $t('Place Order')},
-                        css: {disabled: !isPlaceOrderActionAllowed()},
-                        enable: (getCode() == isChecked())
-                        "
+                    click: placeOrder,
+                    attr: {title: $t('Place Order')},
+                    css: {disabled: !isPlaceOrderActionAllowed()},
+                    enable: (getCode() == isChecked())
+                    "
                         disabled>
                     <span data-bind="text: $t('Place Order')"></span>
                 </button>
