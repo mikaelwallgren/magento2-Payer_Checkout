@@ -13,7 +13,7 @@ define(
         return Component.extend({
             redirectAfterPlaceOrder: false,
             defaults: {
-                template: 'Payer_Checkout/payment/payer_checkout-form',
+                template: 'Payer_Checkout/payment/payer_checkout_invoice-form',
             },
             placeOrder: function (data, event) {
                 var self = this;
@@ -21,17 +21,10 @@ define(
                     event.preventDefault();
                 }
                 if (this.validate() && additionalValidators.validate()) {
-                    window.location.replace(url.build('payer/checkout/redirect')+'?payer_method='+$("input[name='payer_method']:checked").val());
+                    window.location.replace(url.build('payer/checkout/redirect')+'?payer_method=invoice');
                     return true;
                 }
                 return false;
-            },
-            getMethods: function () {
-                var payerMethods = ko.observableArray();
-                window.checkoutConfig.payment.payer_checkout.methods.forEach(function(item, index){
-                    payerMethods.push({ name: item.name, value: item.value });
-                });
-                return payerMethods;
             },
         });
     }

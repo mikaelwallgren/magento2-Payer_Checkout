@@ -1,10 +1,10 @@
 <?php
 
-namespace Payer\Checkout\Model;
+namespace Payer\Checkout\Model\Payment;
 
-class Payment extends \Magento\Payment\Model\Method\AbstractMethod
+class Swish extends \Magento\Payment\Model\Method\AbstractMethod
 {
-	const CODE = 'payer_checkout';
+	const CODE = 'payer_checkout_swish';
 
 	protected $_code = self::CODE;
 
@@ -13,7 +13,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
 	 *
 	 * @var string
 	 */
-	protected $_formBlockType = 'Payer\Checkout\Block\Form\Payer_Checkout';
+	protected $_formBlockType = 'Payer\Checkout\Block\Form\Payer_Checkout_Swish';
 
 	/**
 	 * Determine method availability based on  config data
@@ -29,10 +29,6 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
 		}
 
 		return parent::isAvailable($quote);
-	}
-
-	public function getPayerMethods(){
-		return $this->getConfigData('payer_methods');
 	}
 
 }

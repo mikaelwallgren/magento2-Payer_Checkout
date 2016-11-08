@@ -11,9 +11,26 @@ class Settle extends \Magento\Framework\App\Action\Action {
 			\Magento\Framework\App\Action\Context $context,
 			\Magento\Quote\Model\QuoteFactory $quoteFactory,
 			\Magento\Quote\Model\QuoteManagement $quoteManagement,
-			\Payer\Checkout\Model\Payment $payerCheckoutModel
+			\Payer\Checkout\Model\Payment\All $payerCheckoutAllModel,
+			\Payer\Checkout\Model\Payment\Card $payerCheckoutCardModel,
+			\Payer\Checkout\Model\Payment\Invoice $payerCheckoutInvoiceModel,
+			\Payer\Checkout\Model\Payment\Bank $payerCheckoutBankModel,
+			\Payer\Checkout\Model\Payment\Installment $payerCheckoutInstallmentModel,
+			\Payer\Checkout\Model\Payment\Swish $payerCheckoutSwishModel
 	) {
-		$this->payerCheckoutModel = $payerCheckoutModel;
+		if($_REQUEST['payer_method'] == 'all') {
+			$this->payerCheckoutModel = $payerCheckoutAllModel;
+		} else if($_REQUEST['payer_method'] == 'card') {
+			$this->payerCheckoutModel = $payerCheckoutCardModel;
+		} else if($_REQUEST['payer_method'] == 'invoice') {
+			$this->payerCheckoutModel = $payerCheckoutInvoiceModel;
+		} else if($_REQUEST['payer_method'] == 'bank') {
+			$this->payerCheckoutModel = $payerCheckoutBankModel;
+		} else if($_REQUEST['payer_method'] == 'installment') {
+			$this->payerCheckoutModel = $payerCheckoutInstallmentModel;
+		} else if($_REQUEST['payer_method'] == 'swish') {
+			$this->payerCheckoutModel = $payerCheckoutSwishModel;
+		}
 		$this->quoteFactory = $quoteFactory;
 		$this->quoteManagement = $quoteManagement;
 		parent::__construct($context);

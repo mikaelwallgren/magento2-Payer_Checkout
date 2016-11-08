@@ -12,8 +12,8 @@ define(
         'use strict';
         rendererList.push(
             {
-                type: 'payer_checkout',
-                component: 'Payer_Checkout/js/view/payment/method-renderer/payer_checkout-method'
+                type: 'payer_checkout_swish',
+                component: 'Payer_Checkout/js/view/payment/method-renderer/payer_checkout_swish-method'
             }
         );
         /** Add view logic here if needed */

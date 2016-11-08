@@ -2,12 +2,42 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <payment>
-            <payer_checkout>
+            <payer_checkout_all>
                 <active>0</active>
-                <model>Payer\Checkout\Model\Payment</model>
-                <title>Payer Checkout</title>
+                <model>Payer\Checkout\Model\Payment\All</model>
+                <title>Payer Checkout All</title>
                 <allowspecific>0</allowspecific>
-            </payer_checkout>
+            </payer_checkout_all>
+            <payer_checkout_card>
+                <active>0</active>
+                <model>Payer\Checkout\Model\Payment\Card</model>
+                <title>Payer Checkout Card</title>
+                <allowspecific>0</allowspecific>
+            </payer_checkout_card>
+            <payer_checkout_invoice>
+                <active>0</active>
+                <model>Payer\Checkout\Model\Payment\Invoice</model>
+                <title>Payer Checkout Invoice</title>
+                <allowspecific>0</allowspecific>
+            </payer_checkout_invoice>
+            <payer_checkout_bank>
+                <active>0</active>
+                <model>Payer\Checkout\Model\Payment\Bank</model>
+                <title>Payer Checkout Bank</title>
+                <allowspecific>0</allowspecific>
+            </payer_checkout_bank>
+            <payer_checkout_installment>
+                <active>0</active>
+                <model>Payer\Checkout\Model\Payment\Installment</model>
+                <title>Payer Checkout Installment</title>
+                <allowspecific>0</allowspecific>
+            </payer_checkout_installment>
+            <payer_checkout_swish>
+                <active>0</active>
+                <model>Payer\Checkout\Model\Payment\Swish</model>
+                <title>Payer Checkout Swish</title>
+                <allowspecific>0</allowspecific>
+            </payer_checkout_swish>
         </payment>
     </default>
 </config>

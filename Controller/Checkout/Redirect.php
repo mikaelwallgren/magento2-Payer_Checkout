@@ -13,9 +13,26 @@ class Redirect extends \Magento\Framework\App\Action\Action {
 	public function __construct(
 			\Magento\Framework\App\Action\Context $context,
 			\Magento\Checkout\Model\Session $checkoutSession,
-			\Payer\Checkout\Model\Payment $payerCheckoutModel
+			\Payer\Checkout\Model\Payment\All $payerCheckoutAllModel,
+			\Payer\Checkout\Model\Payment\Card $payerCheckoutCardModel,
+			\Payer\Checkout\Model\Payment\Invoice $payerCheckoutInvoiceModel,
+			\Payer\Checkout\Model\Payment\Bank $payerCheckoutBankModel,
+			\Payer\Checkout\Model\Payment\Installment $payerCheckoutInstallmentModel,
+			\Payer\Checkout\Model\Payment\Swish $payerCheckoutSwishModel
 	) {
-		$this->payerCheckoutModel = $payerCheckoutModel;
+		if($_REQUEST['payer_method'] == 'all') {
+			$this->payerCheckoutModel = $payerCheckoutAllModel;
+		} else if($_REQUEST['payer_method'] == 'card') {
+			$this->payerCheckoutModel = $payerCheckoutCardModel;
+		} else if($_REQUEST['payer_method'] == 'invoice') {
+			$this->payerCheckoutModel = $payerCheckoutInvoiceModel;
+		} else if($_REQUEST['payer_method'] == 'bank') {
+			$this->payerCheckoutModel = $payerCheckoutBankModel;
+		} else if($_REQUEST['payer_method'] == 'installment') {
+			$this->payerCheckoutModel = $payerCheckoutInstallmentModel;
+		} else if($_REQUEST['payer_method'] == 'swish') {
+			$this->payerCheckoutModel = $payerCheckoutSwishModel;
+		}
 		$this->checkoutSession = $checkoutSession;
 		$this->urlBuilder = $context->getUrl();
 		parent::__construct($context);
@@ -28,6 +45,8 @@ class Redirect extends \Magento\Framework\App\Action\Action {
 		$quote = $this->checkoutSession->getQuote();
 		$customer = $quote->getCustomer();
 		$billingAddress = $quote->getBillingAddress();
+
+		error_log('debug: ' . $this->payerCheckoutModel->getConfigData('debug'));
 
 		$credentials = array(
 				'agent_id' => $this->payerCheckoutModel->getConfigData('agent_id'),
@@ -53,7 +72,7 @@ class Redirect extends \Magento\Framework\App\Action\Action {
 						'currency' => $quote->getQuoteCurrencyCode(),
 						'description' => 'Quote Id ' . $quote->getId(),
 						'reference_id' => $quote->getId(),
-						'test_mode' => $this->payerCheckoutModel->getConfigData('debug'),
+						'test_mode' => ($this->payerCheckoutModel->getConfigData('debug')==1)?'true':'false',
 						'customer' => array(
 								'identity_number' => '',
 							// 'organisation'      => 'Test Company',
