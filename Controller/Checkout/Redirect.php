@@ -46,8 +46,6 @@ class Redirect extends \Magento\Framework\App\Action\Action {
 		$customer = $quote->getCustomer();
 		$billingAddress = $quote->getBillingAddress();
 
-		error_log('debug: ' . $this->payerCheckoutModel->getConfigData('debug'));
-
 		$credentials = array(
 				'agent_id' => $this->payerCheckoutModel->getConfigData('agent_id'),
 				'post' => array(
@@ -55,6 +53,11 @@ class Redirect extends \Magento\Framework\App\Action\Action {
 						'key_2' => $this->payerCheckoutModel->getConfigData('key_2')
 				),
 		);
+
+		$yourReference = '';
+		if($billingAddress->getCompany() != ''){
+			$yourReference = $billingAddress->getFirstname().' '.$billingAddress->getLastname();
+		}
 
 		$data = array(
 				'payment' => array(
@@ -75,13 +78,13 @@ class Redirect extends \Magento\Framework\App\Action\Action {
 						'test_mode' => ($this->payerCheckoutModel->getConfigData('debug')==1)?'true':'false',
 						'customer' => array(
 								'identity_number' => '',
-							// 'organisation'      => 'Test Company',
-							// 'your_reference'    => 'Test Reference',
+								'organisation' => $billingAddress->getCompany(),
+								'your_reference' => $yourReference,
 								'first_name' => $billingAddress->getFirstname(),
 								'last_name' => $billingAddress->getLastname(),
 								'address' => array(
-										'address_1' => $billingAddress->getStreetFull(),
-										'address_2' => '',
+										'address_1' => $billingAddress->getStreetLine(1),
+										'address_2' => $billingAddress->getStreetLine(2),
 										'co' => '',
 								),
 								'zip_code' => $billingAddress->getPostcode(),
