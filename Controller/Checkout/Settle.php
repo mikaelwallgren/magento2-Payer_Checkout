@@ -50,7 +50,7 @@ class Settle extends \Magento\Framework\App\Action\Action {
 		try {
 			$gateway = \Payer\Sdk\Client::create($credentials);
 			$purchase = new \Payer\Sdk\Resource\Purchase($gateway);
-			$purchase->validateCallbackRequest();
+			$purchase->createSettlementResource();
 			$quote = $this->quoteFactory->create()->load($_REQUEST['quote_id']);
 			$quote->setPaymentMethod('payer_checkout');
 			$quote->setAdditionalInformation('payer_payment_type', $_REQUEST['payer_payment_type']);
@@ -60,7 +60,6 @@ class Settle extends \Magento\Framework\App\Action\Action {
 			$quote->collectTotals()->save();
 			$order = $this->quoteManagement->submit($quote);
 			$order->setEmailSent(0);
-			$purchase->acceptCallbackRequest();
 		} catch(\Payer\Sdk\Exception\PayerException $e) {
 			var_dump($e);
 		}
