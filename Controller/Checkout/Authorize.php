@@ -44,7 +44,9 @@ class Authorize extends \Magento\Framework\App\Action\Action {
 		try {
 			$gateway = \Payer\Sdk\Client::create($credentials);
 			$purchase = new \Payer\Sdk\Resource\Purchase($gateway);
-			$purchase->createAuthorizeResource();
+			$purchase->validateCallbackRequest();
+			// Do your customizations here
+			$purchase->acceptCallbackRequest();
 		} catch(\Payer\Sdk\Exception\PayerException $e) {
 			var_dump($e);
 		}
