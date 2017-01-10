@@ -67,7 +67,7 @@ class Redirect extends \Magento\Framework\App\Action\Action {
 								'authorize' => $this->urlBuilder->getUrl('payer/checkout/authorize') . '?quote_id=' . $quote->getId(),
 								'settle' => $this->urlBuilder->getUrl('payer/checkout/settle') . '?quote_id=' . $quote->getId(),
 								'redirect' => $this->urlBuilder->getUrl('/checkout'),
-								'success' => $this->urlBuilder->getUrl('payer/checkout/success') . '?quote_id=' . $quote->getId()
+								'success' => $this->urlBuilder->getUrl('payer/checkout/success') . '?quote_id=' . $quote->getId().'&payer_method='.$_REQUEST['payer_method']
 						),
 				),
 				'purchase' => array(

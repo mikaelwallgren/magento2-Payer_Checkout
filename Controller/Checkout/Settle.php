@@ -18,17 +18,17 @@ class Settle extends \Magento\Framework\App\Action\Action {
 			\Payer\Checkout\Model\Payment\Installment $payerCheckoutInstallmentModel,
 			\Payer\Checkout\Model\Payment\Swish $payerCheckoutSwishModel
 	) {
-		if($_REQUEST['payer_method'] == 'all') {
+		if($_REQUEST['payer_payment_type'] == 'all') {
 			$this->payerCheckoutModel = $payerCheckoutAllModel;
-		} else if($_REQUEST['payer_method'] == 'card') {
+		} else if($_REQUEST['payer_payment_type'] == 'card') {
 			$this->payerCheckoutModel = $payerCheckoutCardModel;
-		} else if($_REQUEST['payer_method'] == 'invoice') {
+		} else if($_REQUEST['payer_payment_type'] == 'invoice') {
 			$this->payerCheckoutModel = $payerCheckoutInvoiceModel;
-		} else if($_REQUEST['payer_method'] == 'bank') {
+		} else if($_REQUEST['payer_payment_type'] == 'bank') {
 			$this->payerCheckoutModel = $payerCheckoutBankModel;
-		} else if($_REQUEST['payer_method'] == 'installment') {
+		} else if($_REQUEST['payer_payment_type'] == 'installment') {
 			$this->payerCheckoutModel = $payerCheckoutInstallmentModel;
-		} else if($_REQUEST['payer_method'] == 'swish') {
+		} else if($_REQUEST['payer_payment_type'] == 'swish') {
 			$this->payerCheckoutModel = $payerCheckoutSwishModel;
 		}
 		$this->quoteFactory = $quoteFactory;
@@ -52,11 +52,11 @@ class Settle extends \Magento\Framework\App\Action\Action {
 			$purchase = new \Payer\Sdk\Resource\Purchase($gateway);
 			$purchase->validateCallbackRequest();
 			$quote = $this->quoteFactory->create()->load($_REQUEST['quote_id']);
-			$quote->setPaymentMethod('payer_checkout');
+			$quote->setPaymentMethod($this->payerCheckoutModel->getCode());
 			$quote->setAdditionalInformation('payer_payment_type', $_REQUEST['payer_payment_type']);
 			$quote->setAdditionalInformation('payer_payment_id', $_REQUEST['payer_payment_id']);
 			$quote->save();
-			$quote->getPayment()->importData(['method' => 'payer_checkout']);
+			$quote->getPayment()->importData(['method' => $this->payerCheckoutModel->getCode()]);
 			$quote->collectTotals()->save();
 			$order = $this->quoteManagement->submit($quote);
 			$order->setEmailSent(0);
