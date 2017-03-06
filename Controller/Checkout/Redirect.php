@@ -44,6 +44,12 @@ class Redirect extends \Magento\Framework\App\Action\Action {
 	public function execute() {
 		$quote = $this->checkoutSession->getQuote();
 		$customer = $quote->getCustomer();
+		if(isset($_REQUEST['guestEmail'])) {
+			$quote->getBillingAddress()->setEmail($_REQUEST['guestEmail']);
+			$quote->getShippingAddress()->setEmail($_REQUEST['guestEmail']);
+			$quote->save();
+		}
+		$quote = $this->checkoutSession->getQuote();
 		$billingAddress = $quote->getBillingAddress();
 
 		$credentials = array(
@@ -127,4 +133,5 @@ class Redirect extends \Magento\Framework\App\Action\Action {
 			var_dump($e);
 		}
 	}
+
 }
